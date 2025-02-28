@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Employee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #6c46a2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #429E9D;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+        }
+        h1 {
+            color: #333;
+        }
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Update Employee</h1>
+        <form action="/myemp/update/" method="get" onsubmit="redirectToUpdateForm(event)">
+            <label for="eno">Employee Number:</label>
+            <input type="number" id="eno" name="eno" required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <script>
+        function redirectToUpdateForm(event) {
+            event.preventDefault();
+            const eno = document.getElementById('eno').value;
+            window.location.href = `/myemp/update/${eno}`;
+        }
+    </script>
+
+</body>
+</html>

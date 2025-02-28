@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Details</title>
+    <style>
+        .container {
+            background: #429E9D;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 600px; 
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 500px; 
+            margin-bottom: 10px;
+        }
+
+        label {
+            flex: 1;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        input {
+            flex: 2;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        a {
+            text-decoration: none;
+            color: green;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Details</h1>
+        <form id="employeeForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="eno">Employee Number:</label>
+                <input type="number" id="eno" name="eno" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ename">Employee Name:</label>
+                <input type="text" id="ename" name="ename" maxlength="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="esal">Employee Salary:</label>
+                <input type="number" id="esal" name="esal" required>
+            </div>
+
+            <div class="form-group">
+                <label for="egrade">Employee Grade:</label>
+                <input type="text" id="egrade" name="egrade" maxlength="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="emp_mail">Mail Id:</label>
+                <input type="email" id="emp_mail" name="emp_mail" required>
+            </div>
+
+            <div class="form-group">
+                <label for="emp_photo">Employee Photo:</label>
+                <input type="file" id="emp_photo" name="emp_photo" accept="image/*">
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <br>
+        <a href="/myemp/list">View List of Employees</a>
+    </div>
+
+    <script>
+        document.getElementById("employeeForm").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+
+            let formData = new FormData(this);
+
+            fetch("/myemp/add", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json()) 
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    document.getElementById("employeeForm").reset(); 
+                    setTimeout(() => window.location.reload(), 500); 
+                } else {
+                    alert(data.message || "Something went wrong. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again.");
+            });
+        });
+    </script>
+</body>
+</html>
+
